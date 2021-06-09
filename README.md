@@ -17,6 +17,8 @@ and plays a tune for notifying.
 I was having trouble with teams only showing notification without sound. 
 
 ### How to use
+
+#### Pro (preferred)
 - Clone or fork
 ```bash
 yarn
@@ -26,3 +28,7 @@ yarn build
 - Turn on developer mode
 - Load unpacked
 - Select `dist` file from `tsuchi-suru` and load.
+
+#### Noob
+- Download [Tsuchi-suru](./Tsuchi-suru.crx)
+- Then follow [this](https://www.cnet.com/how-to/how-to-install-chrome-extensions-manually/)
