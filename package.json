@@ -1,0 +1,14 @@
+{
+  "name": "tsuchi-suru",
+  "author": "soulsam480 <soulsam480@hotmail.com>",
+  "description": "A chrome ext to play an alert for every kind of notification on chrome.",
+  "version": "0.0.1",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.145"
+  }
+}
