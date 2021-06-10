@@ -1,23 +1,38 @@
-function notifyCallback() {
-  const audio = new Audio('ring.mp3');
-  audio.play();
-}
+try {
+  console.log('script running');
 
-const handler: ProxyHandler<any> = {
-  construct(target, args) {
+  function notifyCallback() {
+    const audio = new Audio('ring.mp3');
+    audio.play();
+  }
+
+  const handler: ProxyHandler<any> = {
+    construct(target, args) {
+      notifyCallback();
+      return new target(...args);
+    },
+  };
+
+  const ProxifiedNotification = new Proxy(Notification, handler);
+
+  self.Notification = ProxifiedNotification;
+
+  chrome.notifications.onClosed.addListener((e) => {
     notifyCallback();
-    return new target(...args);
-  },
-};
+  });
 
-const ProxifiedNotification = new Proxy(Notification, handler);
-
-window.Notification = ProxifiedNotification;
-
-self.addEventListener('push', (e) => {
-  notifyCallback();
-});
-
-chrome.notifications.onClosed.addListener((e) => {
-  notifyCallback();
-});
+  function activateServiceWorker() {
+    navigator.serviceWorker
+      .register('sw.js', {
+        scope: '.',
+      })
+      .then((reg) => {
+        reg.active?.addEventListener('statechange', () => {
+          if (!reg.active) activateServiceWorker();
+        });
+      });
+  }
+  activateServiceWorker();
+} catch (error) {
+  console.log(error);
+}
